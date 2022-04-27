@@ -30,14 +30,31 @@ const membriTeam = [
         ruolo:'Developer',
         foto:'img/scott-estrada-developer.jpg'
     },
+    {
+        nome:'Walter Gordon',
+        ruolo:'Office manager',
+        foto:'img/walter-gordon-office-manager.jpg'
+    },
+    {
+        nome:'Wayne Barnett',
+        ruolo:'Founder ceo',
+        foto:'img/wayne-barnett-founder-ceo.jpg'
+    },
 ]
 
 const cardEsempio = document.querySelector(".team-card")
+const cardTemplate = cardEsempio.cloneNode(true);
+cardEsempio.remove();
+
 const containerTeam = document.querySelector(".team-container")
 
 for (let index = 0; index < membriTeam.length; index++) {
     const membro = membriTeam[index];
-    const nuovaCard = cardEsempio.cloneNode(true);
+    aggiungiMembro(membro);
+}
+
+function aggiungiMembro(membro) {
+    const nuovaCard = cardTemplate.cloneNode(true);
 
     const img = nuovaCard.querySelector("img")
     img.alt = membro.nome
@@ -52,4 +69,22 @@ for (let index = 0; index < membriTeam.length; index++) {
     containerTeam.appendChild(nuovaCard)
 }
 
-cardEsempio.remove()
+const inputNome = document.querySelector("input#name")
+const inputRuolo = document.querySelector("input#role")
+const inputImmagine = document.querySelector("input#image")
+const inputButton = document.querySelector("button#addMemberButton")
+
+inputButton.addEventListener("click", function(){
+    const newMembro = {
+        nome: inputNome.value,
+        ruolo: inputRuolo.value,
+        foto: `img/${inputImmagine.value}.jpg`,
+    }
+
+    membriTeam.push(newMembro)
+    aggiungiMembro(newMembro)
+
+    inputNome.value = ""
+    inputRuolo.value = ""
+    inputImmagine.value = ""
+})
